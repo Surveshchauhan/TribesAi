@@ -1,0 +1,24 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    globalsum=-float('inf')
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.findpathsum(root)
+        return self.globalsum
+    
+    def findpathsum(self, root):
+        if root is None:
+            return 0
+        leftsum=max(0,self.findpathsum(root.left))
+        rightsum=max(0,self.findpathsum(root.right))
+        self.globalsum= max(self.globalsum, max(leftsum, rightsum,leftsum+rightsum) + root.val)
+        return  root.val + max(0,leftsum, rightsum) 
